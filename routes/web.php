@@ -9,8 +9,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/addQuestion', [App\Http\Controllers\VoteController::class, 'addQuestion'])->name('addQuestion');
 
-
+Route::get('itemDelete/{model}/{id}/{tab}', [App\Http\Controllers\HomeController::class, 'itemDelete'])->name('itemDelete');
+      
 Route::get('/clear', function() {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');

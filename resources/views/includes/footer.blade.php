@@ -50,3 +50,16 @@
          //    "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ]
          // });
       </script>
+
+      <script>
+         $(document).on('click', '#addExtraDropdown', function (e) {
+            e.preventDefault()
+            var html = '<div class="row justify-content-center dropdownDelete"> <i class="fa fa-chevron-down pt-3"></i> <div class="col-8 form-group"> <input type="text" name="dropdownValue[]" class="form-control" placeholder="Value name" required/> </div><button type="button" class="btn dropdown-btn"> <i class="fa fa-trash"></i> </button> </div>'
+
+            $('#extraDropdown').append(html)
+         });
+
+         $("body").on("click",".dropdown-btn",function(e){
+            $(this).parents('.dropdownDelete').remove();
+         });
+      </script>
