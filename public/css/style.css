@@ -51,7 +51,7 @@ legend{
 
 table.dataTable { margin: 5px 0px; border-collapse: collapse; }
 
-.table-bordered, .table-bordered td, .table-bordered th { /*border: 1px solid #dee2e6; border: 1px dashed;*/ }
+.table-bordered, .table-bordered td, .table-bordered th { vertical-align: middle !important }
 
 table.dataTable thead th, table.dataTable.no-footer{ border-bottom: unset; }
 
@@ -63,7 +63,6 @@ table.dataTable thead td { padding: 2px 20px; text-transform: capitalize;
 
 table.dataTable tbody td { text-align: center; vertical-align: middle; padding: 2px; }
 table.dataTable tbody tr { background-color: whitesmoke; }
-
 
 /*Buttom*/
 .dataTables_wrapper .dataTables_info { padding: 0.5rem; }

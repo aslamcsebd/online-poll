@@ -23,6 +23,7 @@ class HomeController extends Controller {
 
     public function index(){
         $data['questionList'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
+        $data['addVote'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
         return view('home', $data);
     }
 
