@@ -31,15 +31,19 @@
                                  <tr class="py-0">
                                     <th>Sl</th>
                                     <th>Question</th>
-                                    <th>Option</th>
+                                    <th>
+                                       <span class="float-left">Option</span>
+                                       
+                                       <b class="float-right">Vote %</b>
+                                    </th>
                                     <th>Action</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  @foreach($questionList as $item)
-                                 @php
-
-                                 @endphp
+                                    @php
+                                       $totalVoter = App\Models\AnswerList::where('questionId', $item->id)->get()->count();
+                                    @endphp
                                     <tr>
                                        @php
                                           $rowspan =$item->getOption->count();
@@ -49,10 +53,22 @@
                                        <td rowspan="{{$totalRow}}">{{$item->question}}</td>           
                                                                        
                                        @foreach($item->getOption as $option)
+                                          @php
+                                             $optionVoter = App\Models\AnswerList::where('questionId', $item->id)
+                                                ->where('optionId', $option->id)
+                                                ->get()->count();
+                                             if($totalVoter){
+                                                $voteRate = round(($optionVoter/$totalVoter)*100, 1);
+                                             }else{
+                                                $voteRate = 0;
+                                             }
+                                          @endphp
                                           <tr>
                                              <td  width="30%" class="py-0 {{($option->answer==true)?'bg-success text-white':''}}">
                                                 {{ chr(96+ $loop->iteration) }}) {{$option->option}} 
-                                                <b>[5% vote]</b>
+                                                <b class="float-right text-danger">
+                                                   {{($voteRate!=0) ? $voteRate.'%' : ''}}
+                                                </b>
                                              </td>
                                              @if($loop->iteration==1)
                                                 <td rowspan="{{$totalRow}}" width="5%" class="text-center ">
