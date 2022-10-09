@@ -20,10 +20,17 @@ class HomeController extends Controller {
     public function __construct(){
         $this->middleware('auth');
     }
-
+// with('getOption')
     public function index(){
+        $user = Auth::user()->id;
         $data['questionList'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
-        $data['addVote'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
+      
+        $questionList = QuestionList::with('getOption')->pluck('id');
+        $answerList = AnswerList::where('userId', $user)->pluck('questionId');
+ 
+        $unVoteQuestion = $questionList->diff($answerList);
+
+        $data['addVote'] = QuestionList::with('getOption')->whereIn('id', $unVoteQuestion)->get();  
         return view('home', $data);
     }
 

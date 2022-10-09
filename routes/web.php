@@ -10,6 +10,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/addQuestion', [App\Http\Controllers\VoteController::class, 'addQuestion'])->name('addQuestion');
+Route::post('/addVote', [App\Http\Controllers\VoteController::class, 'addVote'])->name('addVote');
 
 Route::get('itemDelete/{model}/{id}/{tab}', [App\Http\Controllers\HomeController::class, 'itemDelete'])->name('itemDelete');
       

@@ -6,7 +6,7 @@
    <div class="row justify-content-center">
       <div class="col-md-12">
          <div class="card">
-            <div class="card-header p-0" tyle="margin: 0 auto;">
+            <div class="card-header p-0">
                <ul class="nav nav-pills" id="tabMenu">
                   <li class="nav-item">
                      <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#home">Home</a>
@@ -37,6 +37,9 @@
                               </thead>
                               <tbody>
                                  @foreach($questionList as $item)
+                                 @php
+
+                                 @endphp
                                     <tr>
                                        @php
                                           $rowspan =$item->getOption->count();
@@ -47,7 +50,10 @@
                                                                        
                                        @foreach($item->getOption as $option)
                                           <tr>
-                                             <td  width="auto" class="py-0 {{($option->answer==true)?'bg-success text-white':''}}">{{ chr(96+ $loop->iteration) }}) {{$option->option}}</td>
+                                             <td  width="30%" class="py-0 {{($option->answer==true)?'bg-success text-white':''}}">
+                                                {{ chr(96+ $loop->iteration) }}) {{$option->option}} 
+                                                <b>[5% vote]</b>
+                                             </td>
                                              @if($loop->iteration==1)
                                                 <td rowspan="{{$totalRow}}" width="5%" class="text-center ">
                                                    <a href="{{ url('itemDelete', ['question_lists', $item->id, 'home'])}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you want to delete this?')">Delete</a>
@@ -89,17 +95,25 @@
                                        <td width="5%" rowspan="{{$totalRow}}">{{$loop->iteration}}</td>
                                        <td rowspan="{{$totalRow}}">{{$item->question}}</td>           
                                                                        
-                                       @foreach($item->getOption as $option)
-                                          <tr>
-                                             <td  width="auto" class="py-0">{{ chr(96+ $loop->iteration) }}) {{$option->option}}</td>
-                                             @if($loop->iteration==1)
-                                                <td rowspan="{{$totalRow}}" width="8%" class="p-0 text-center">
-                                                   <a href="{{ url('itemDelete', ['question_lists', $item->id, 'home'])}}" class="btn btn-success btn-sm" onclick="return confirm('Vote this option?')">Vote now</a>
+                                       <form action="{{ Route('addVote') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                                          @foreach($item->getOption as $option)
+                                             <tr>
+                                                @csrf
+                                                <input type="hidden" name="questionId" value="{{$item->id}}">
+                                                <td width="30%" class="py-0">
+                                                   <input type="radio" id="{{$option->id}}" name="optionId" value="{{$option->id}}">
+                                                   <label class="mb-0" for="{{$option->id}}">
+                                                      {{ chr(96+ $loop->iteration) }}) {{$option->option}}                                                
+                                                   </label>
                                                 </td>
-                                             @endif
-                                          </tr>
-                                       @endforeach
-                                                                      
+                                                @if($loop->iteration==1)
+                                                   <td rowspan="{{$totalRow}}" width="8%" class="p-0 text-center">
+                                                      <button class="btn btn-sm btn-success">Vote now</button>
+                                                   </td>
+                                                @endif
+                                             </tr>
+                                          @endforeach                                                                      
+                                       </form>
                                     </tr>
                                  @endforeach
                               </tbody>

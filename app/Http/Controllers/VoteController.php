@@ -50,4 +50,26 @@ class VoteController extends Controller {
         return back()->with('success', 'Question & multiple option added');      
     }
 
+    // Add vote    
+    public function addVote(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'questionId'=>'required',
+            'optionId'=>'required'
+        ]);
+
+        if($validator->fails()){
+            $messages = $validator->messages();
+            return Redirect::back()->withErrors($validator);
+        }
+ 
+        AnswerList::create([
+           'userId' => Auth::user()->id,
+           'questionId' => $request->questionId,
+           'optionId' => $request->optionId,
+        ]);           
+        $tab = "addVote";
+        return back()->with('success', 'Online  vote add successfully')->withInput(['tab' => $tab]);
+    }
+
 }

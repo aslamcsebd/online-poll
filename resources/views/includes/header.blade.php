@@ -1,5 +1,5 @@
 
-<nav id="navbar_top" class="navbar navbar-expand-md navbar-light navbar-muted shadow-sm bg-light">   
+<nav id="navbar_top" class="navbar navbar-expand-md navbar-light navbar-muted shadow-sm bg-light py-0">   
    <a class="navbar-brand" href="{{ url('/') }}">
       Victory Loves Preparation
    </a>
