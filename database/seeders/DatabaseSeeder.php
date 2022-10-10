@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use DB;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $path = 'database/online_poll.sql';
+        $sql = file_get_contents($path);
+        DB::unprepared($sql);
     }
 }

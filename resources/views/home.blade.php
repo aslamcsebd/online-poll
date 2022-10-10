@@ -66,7 +66,7 @@
                                           <tr>
                                              <td  width="30%" class="py-0 {{($option->answer==true)?'bg-success text-white':''}}">
                                                 {{ chr(96+ $loop->iteration) }}) {{$option->option}} 
-                                                <b class="float-right text-danger">
+                                                <b class="float-right ext-danger">
                                                    {{($voteRate!=0) ? $voteRate.'%' : ''}}
                                                 </b>
                                              </td>
@@ -88,9 +88,6 @@
 
                   <div class="tab-pane fade show" id="addVote">
                      <div class="card border border-danger">
-                        <div class="card-header p-1">
-                           <button class="btn btn-sm btn-success text-light" data-toggle="modal" data-original-title="test" data-target="#addQuestion">Add question</button>
-                        </div>
                         <div class="card-body p-1">
                            <table class="table table-bordered">
                               <thead class="bg-info text-center text-white py-0">
