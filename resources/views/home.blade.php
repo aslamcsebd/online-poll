@@ -40,7 +40,7 @@
                                  </tr>
                               </thead>
                               <tbody>
-                                 @foreach($questionList as $item)
+                                 @foreach($answered as $item)
                                     @php
                                        $totalVoter = App\Models\AnswerList::where('questionId', $item->id)->get()->count();
                                     @endphp
@@ -99,7 +99,7 @@
                                  </tr>
                               </thead>
                               <tbody>
-                                 @foreach($addVote as $item)
+                                 @foreach($notAnswered as $item)
                                     <tr>
                                        @php
                                           $rowspan =$item->getOption->count();

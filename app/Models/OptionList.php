@@ -9,4 +9,8 @@ class OptionList extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function getAnswers(){
+        return $this->hasMany(AnswerList::class, 'optionId', 'id');
+    }
 }

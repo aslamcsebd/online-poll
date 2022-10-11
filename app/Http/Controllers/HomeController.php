@@ -22,15 +22,25 @@ class HomeController extends Controller {
     }
 // with('getOption')
     public function index(){
-        $user = Auth::user()->id;
-        $data['questionList'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
+        // $user = Auth::user()->id;
+        // $data['questionList'] = QuestionList::where('userId', Auth::user()->id)->with('getOption')->get();
       
-        $questionList = QuestionList::with('getOption')->pluck('id');
-        $answerList = AnswerList::where('userId', $user)->pluck('questionId');
+        // $questionList = QuestionList::with('getOption')->pluck('id');
+        // $answerList = AnswerList::where('userId', $user)->pluck('questionId');
  
-        $unVoteQuestion = $questionList->diff($answerList);
+        // $unVoteQuestion = $questionList->diff($answerList);
 
-        $data['addVote'] = QuestionList::with('getOption')->whereIn('id', $unVoteQuestion)->get();  
+        // $data['addVote'] = QuestionList::with('getOption')->whereIn('id', $unVoteQuestion)->get();  
+        $data['answered'] = QuestionList::with('getOption.getAnswers')
+        ->whereHas('getOption.getAnswers', function($q){
+            $q->where('userId', Auth::user()->id);
+        })->get();
+
+        $data['notAnswered'] = QuestionList::with('getOption.getAnswers')
+        ->whereDoesntHave('getOption.getAnswers', function($q){
+            $q->where('userId', Auth::user()->id);
+        })->get();
+
         return view('home', $data);
     }
 
